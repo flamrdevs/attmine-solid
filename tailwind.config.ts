@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import defaultTheme from "tailwindcss/defaultTheme";
 
 import coloradix, { slate, violet } from "@coloradix/tailwindcss";
 
@@ -19,6 +20,12 @@ export default {
       transparent: "transparent",
       current: "currentColor",
       ...radix.colors,
+    },
+    extend: {
+      fontFamily: {
+        sans: ["Inter"].concat(defaultTheme.fontFamily.sans),
+        mono: ["Roboto Mono"].concat(defaultTheme.fontFamily.mono),
+      },
     },
   },
   plugins: [radix.plugin],

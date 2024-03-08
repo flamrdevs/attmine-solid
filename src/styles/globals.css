@@ -1,5 +1,10 @@
 @tailwind base;
 @tailwind components;
+
+.lucide {
+  @apply size-5;
+}
+
 @tailwind utilities;
 
 body {

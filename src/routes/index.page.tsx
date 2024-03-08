@@ -1,42 +1,86 @@
-import { Show } from "solid-js";
+import { For } from "solid-js";
 import type { Component } from "solid-js";
 
-import { MoonIcon, SunIcon } from "lucide-solid";
+import { A } from "@solidjs/router";
 
-import { Avatar, Badge, Button, IconButton } from "~/components/ui";
+import { ArrowUpRightIcon, ComponentIcon, LayoutDashboardIcon, StarIcon } from "lucide-solid";
 
-import { toggleTheme, useTheme } from "~/store/theme.ts";
+import { Badge, Button } from "~/components/ui";
+import { ThemeTogglerIconButton } from "~/components/theme";
 
 export default (() => {
-  const theme = useTheme();
+  const links = [
+    {
+      title: "Dashboard",
+      href: "/dash",
+      icon: LayoutDashboardIcon,
+    },
+    {
+      title: "Components",
+      href: "/components",
+      icon: ComponentIcon,
+    },
+  ];
 
   return (
-    <main class="flex items-center justify-center w-dvw h-dvh overflow-hidden">
-      <div class="inline-flex items-center justify-center gap-3 p-2 bg-neutral-2 border border-neutral-3 rounded-2xl font-mono">
-        <Avatar src="/vite.webp" alt="vitejs">
-          V
-        </Avatar>
+    <main class="container mx-auto max-w-screen-lg">
+      <header class="flex items-center gap-2 p-4 sm:p-5 md:p-6 lg:p-7 border-b border-b-neutral-6">
+        <h1 id="attmine-solid" class="font-bold text-2xl lg:text-3xl select-none">
+          Attmine Solid
+        </h1>
 
-        <div class="w-16" />
+        <Badge>WIP</Badge>
 
-        <Badge color="neutral">attmine</Badge>
-        <Badge color="primary">solid</Badge>
+        <div class="grow" />
 
-        <div class="w-16" />
-
-        <Button as="a" href="https://github.com/flamrdevs/attmine-solid.git" target="_blank">
-          <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="fill-current size-5">
-            <title>GitHub</title>
-            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-          </svg>
-          GitHub
+        <Button as="a" href="https://github.com/flamrdevs/attmine-solid" target="_blank" class="hidden md:inline-flex">
+          <span>Star on GitHub</span>
+          <StarIcon />
         </Button>
-        <IconButton onClick={toggleTheme}>
-          <Show when={theme() === "dark"} fallback={<MoonIcon class="size-5" />}>
-            <SunIcon class="size-5" />
-          </Show>
-        </IconButton>
-      </div>
+
+        <ThemeTogglerIconButton />
+      </header>
+
+      <main class="my-12 lg:my-16">
+        <h2 id="get-started" class="mb-4 font-medium text-center text-xl lg:text-2xl select-none">
+          Get started
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-5 p-4 sm:p-5 md:p-6 lg:p-7">
+          <For each={links}>
+            {(link) => (
+              <A
+                href={link.href}
+                class="group px-6 py-5 bg-neutral-2 hover:bg-neutral-3 outline-none select-none border border-neutral-4 hover:border-neutral-6 rounded-2xl shadow focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-neutral-8 focus-visible:ring-offset-neutral-1"
+              >
+                <div class="flex items-center gap-2 lg:gap-3 text-lg lg:text-xl">
+                  <span class="p-1 border border-neutral-4 group-hover:border-neutral-6 rounded-lg">
+                    <link.icon class="text-neutral-9 group-hover:text-neutral-11 group-focus-visible:text-neutral-11" />
+                  </span>
+                  <span class="text-neutral-11 group-hover:text-neutral-12 group-focus-visible:text-neutral-12">{link.title}</span>
+                </div>
+
+                <div class="flex justify-end mt-4">
+                  <ArrowUpRightIcon class="size-7 text-neutral-9 group-hover:text-neutral-11 group-focus-visible:text-neutral-11 transition group-hover:-translate-y-1 group-focus-visible:-translate-y-1" />
+                </div>
+              </A>
+            )}
+          </For>
+        </div>
+      </main>
+
+      <footer class="mx-auto px-4 md:px-8">
+        <span class="block text-center text-sm text-neutral-7">
+          created by{" "}
+          <a
+            href="https://github.com/flamrdevs"
+            target="_blank"
+            class="text-neutral-7 hover:text-neutral-9 outline-none focus-visible:text-neutral-9"
+          >
+            flamrdevs
+          </a>
+        </span>
+      </footer>
     </main>
   );
 }) satisfies Component;
