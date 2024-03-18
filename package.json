@@ -19,8 +19,8 @@
   },
   "dependencies": {
     "@ark-ui/solid": "^2.2.0",
-    "@klass/core": "4.0.0-next.22",
-    "@klass/solid": "4.0.0-next.22",
+    "@klass/core": "4.0.0-next.26",
+    "@klass/solid": "4.0.0-next.26",
     "@nanostores/persistent": "^0.10.1",
     "@nanostores/solid": "^0.4.2",
     "@solidjs/router": "^0.13.0",

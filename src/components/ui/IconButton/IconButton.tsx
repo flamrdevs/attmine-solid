@@ -1,43 +1,29 @@
 import type { VariantsOf } from "@klass/core";
-import { klass, klassed } from "./../utils.ts";
+import { klass, compose, composed } from "./../utils.ts";
+
+import { baseButtonVariants } from "./../Button/variants.ts";
+import { marginVariants } from "./../styles.ts";
 
 export type IconButtonVariants = VariantsOf<typeof iconButtonVariants>;
 
-export const iconButtonVariants = klass({
-  base: [
-    "inline-flex items-center justify-center gap-2 outline-none",
-    "border",
-    "focus-visible:ring-2 focus-visible:ring-offset-2",
-    "disabled:opacity-90 disabled:pointer-events-none",
-  ],
-  variants: {
-    color: {
-      neutral: [
-        "bg-neutral-3 hover:bg-neutral-4 active:bg-neutral-5 text-neutral-11",
-        "border-neutral-6",
-        "focus-visible:ring-neutral-8 focus-visible:ring-offset-neutral-1",
-        "disabled:bg-neutral-4 disabled:text-neutral-8 disabled:border-neutral-5",
-      ],
-      primary: [
-        "bg-primary-3 hover:bg-primary-4 active:bg-primary-5 text-primary-11",
-        "border-primary-6",
-        "focus-visible:ring-primary-8 focus-visible:ring-offset-primary-1",
-        "disabled:bg-primary-4 disabled:text-primary-8 disabled:border-primary-5",
-      ],
+export const iconButtonVariants = compose(
+  baseButtonVariants,
+  klass({
+    variants: {
+      size: {
+        sm: "w-6 h-6 text-sm font-normal rounded-md",
+        md: "w-8 h-8 text-base font-medium rounded-lg",
+        lg: "w-10 h-10 text-lg font-medium rounded-xl",
+      },
     },
-    size: {
-      sm: "w-7 h-7 text-sm font-normal rounded-md",
-      md: "w-9 h-9 text-base font-medium rounded-lg",
-      lg: "w-11 h-11 text-lg font-medium rounded-xl",
+    defaults: {
+      size: "md",
     },
-  },
-  defaults: {
-    color: "neutral",
-    size: "md",
-  },
-});
+  }),
+  marginVariants
+);
 
-export const IconButton = klassed("button", iconButtonVariants, {
+export const IconButton = composed("button", iconButtonVariants, {
   dp: {
     type: "button",
   },

@@ -2,7 +2,7 @@
 @tailwind components;
 
 .lucide {
-  @apply size-5;
+  @apply size-4;
 }
 
 @tailwind utilities;
